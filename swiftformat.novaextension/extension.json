@@ -1,0 +1,38 @@
+{
+    "identifier": "computer.gareth.swiftformat",
+    "name": "Swift Format",
+    "organization": "Gareth Redman",
+    "description": "Swift Format",
+    "version": "1.0",
+    "categories": ["languages", "formatters"],
+
+    "bugs": "https://github.com/gredman/swiftformat-novaextension/issues",
+    "homepage": "https://github.com/gredman/swiftformat-novaextension",
+    "repository": "https://github.com/gredman/swiftformat-novaextension",
+
+    "entitlements": {
+        "process": true,
+        "filesystem": "readonly"
+    },
+
+    "main": "main.js",
+
+    "config": [{
+        "key": "computer.gareth.swiftformat.path",
+        "title": "Path to swiftformat",
+        "type": "path",
+        "default": "/usr/local/bin/swiftformat"
+    }],
+
+    "commands": {
+        "editor": [{
+                "title": "Format Swift",
+                "command": "swiftformat",
+                "when": "!editorHasMultipleSelections",
+                "filters": {
+                    "syntaxes": ["swift"]
+                }
+            }
+        ]
+    }
+}
