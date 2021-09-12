@@ -11,8 +11,7 @@
     "repository": "https://github.com/gredman/swiftformat-novaextension",
 
     "entitlements": {
-        "process": true,
-        "filesystem": "readonly"
+        "process": true
     },
 
     "main": "main.js",
