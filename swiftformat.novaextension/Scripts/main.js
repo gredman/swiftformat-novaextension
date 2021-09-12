@@ -1,3 +1,4 @@
+let config = require("./config");
 nova.commands.register("swiftformat", format);
 
 function format(editor) {
@@ -21,15 +22,22 @@ function format(editor) {
 
 Process.swiftformat = (isFragment) => {
     var path = nova.config.get("computer.gareth.swiftformat.path");
-    var options = {
-        args: [
+    var arguments = [
             path,
             "--fragment", isFragment ? "true" : "false",
-            "--quiet",
-            "stdin"
+            "--quiet"
         ]
-    };
-    return new Process("/usr/bin/env", options);
+    var rules = config.getRules();
+    if (rules.length > 0) {
+        arguments.push("--rules", rules);
+    }
+    var options = config.getOptions();
+    if (options.length > 0) {
+        arguments = arguments.concat(options);
+        console.log(options, typeof(options), options.length);
+    }
+    arguments.push("stdin");
+    return new Process("/usr/bin/env", { args: arguments });
 }
 
 function filter(process, text) {
@@ -66,3 +74,4 @@ function filter(process, text) {
         });
     });
 };
+

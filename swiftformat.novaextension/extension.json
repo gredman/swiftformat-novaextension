@@ -16,12 +16,7 @@
 
     "main": "main.js",
 
-    "config": [{
-        "key": "computer.gareth.swiftformat.path",
-        "title": "Path to swiftformat",
-        "type": "path",
-        "default": "/usr/local/bin/swiftformat"
-    }],
+    "config": "config.json",
 
     "commands": {
         "editor": [{

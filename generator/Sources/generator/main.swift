@@ -1,0 +1,1 @@
+GeneratorCommand.main()
