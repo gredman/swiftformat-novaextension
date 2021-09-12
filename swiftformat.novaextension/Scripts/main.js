@@ -11,6 +11,11 @@ function format(editor) {
         editor.edit((e) => {
             e.replace(range, formatted);
         });
+    }).catch((error) => {
+        let request = new NotificationRequest();
+        request.title = nova.localize("Error");
+        request.body = error;
+        nova.notifications.add(request);
     });
 }
 
@@ -29,7 +34,7 @@ Process.swiftformat = (isFragment) => {
 
 function filter(process, text) {
     return new Promise((resolve, reject) => {
-        var formatted = "";
+        var formatted = "", error = "";
 
         process.onStdout((line) => {
             formatted += line;
@@ -37,13 +42,14 @@ function filter(process, text) {
 
         process.onStderr((line) => {
             console.error("stderr:", line);
+            error += line;
         });
 
         process.onDidExit((status) => {
             console.log("finished with status", status);
             if (status != 0) {
                 console.error("swiftformat finished with non-zero status");
-                reject();
+                reject(error);
                 return;
             }
             resolve(formatted);
