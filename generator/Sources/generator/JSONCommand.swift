@@ -12,7 +12,9 @@ struct JSONCommand: ParsableCommand {
         let preferences = FormatRules.all
             .filter { $0.deprecationMessage == nil }
             .map(Preference.init(rule:))
-        let data = try JSONEncoder().encode(preferences)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted]
+        let data = try encoder.encode(preferences)
         print(String(data: data, encoding: .utf8)!)
     }
 }
